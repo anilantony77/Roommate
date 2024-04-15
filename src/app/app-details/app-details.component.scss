@@ -1,0 +1,43 @@
+ .card-user {
+    width: 84px;
+    height: 97px;
+ }
+
+ .card-main {
+    width: 336px;
+    height: 100%;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    background-color: white;
+    padding: 5px;
+ }
+
+ .seach-icon {
+    position: relative;
+    cursor: pointer;
+    img{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+    input {
+        padding: 5px;
+        border-radius: 30px;
+        width: 260px;
+    }
+ }
+
+ .nav-bar {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    border-bottom: 1px solid gray;
+ }
+
+ .logout {
+    cursor: pointer;
+ }
+
+ .main-card {
+    cursor: pointer;
+ }
