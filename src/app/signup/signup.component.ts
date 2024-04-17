@@ -7,6 +7,11 @@ import {
   Validators,
 } from '@angular/forms';
 import Validation from './utlis/validation';
+import { ApiService } from '../api.service';
+import { Router } from '@angular/router';
+// import { ToastrService } from 'ngx-toastr';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { HttpResponse } from '@angular/common/http';
 
 
 @Component({
@@ -24,11 +29,14 @@ export class SignupComponent implements OnInit {
   });
   submitted = false;
   passwordHidden = true;
-
-  constructor(private formBuilder: FormBuilder) {}
+  emailexists = false;
+  isLoader = false;
+  constructor(private formBuilder: FormBuilder, private apiservice: ApiService, 
+    private router:Router,
+    private ngxService: NgxUiLoaderService,) {}
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group(
+    this.form = this.formBuilder.group( 
       {
         firstname: [
           '',
@@ -64,14 +72,34 @@ export class SignupComponent implements OnInit {
     return this.form.controls;
   }
 
+
   onSubmit(): void {
     this.submitted = true;
-
-    if (this.form.invalid) {
-      return;
-    }
-
-    console.log(JSON.stringify(this.form.value, null, 2));
+    if(this.form.valid){
+    this.ngxService.start();
+    this.isLoader  = true;
+    this.apiservice.register(this.form.value).subscribe((result: any)=> {
+      if(result && result.status ===  "200"){
+        this.emailexists = false;
+        this.ngxService.stop();
+        this.isLoader = false;
+        setTimeout(() => {
+          this.router.navigate(["login"])
+        },2000)
+      }
+      else {
+        if(result.status === "401"){
+          this.ngxService.stop();
+          this.emailexists = true;
+          this.isLoader = false;
+        }
+      }
+    },(err) => {
+      this.ngxService.stop();
+      this.isLoader = false;
+      // this.toastr.error(err.error.message);
+    })
+  }
   }
 
   togglePasswordVisibility(): void {
