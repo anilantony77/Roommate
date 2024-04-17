@@ -12,6 +12,7 @@ import { AccomadationComponent } from '../accomadation/accomadation.component';
 export class AppDetailsComponent implements OnInit {
   universityId!: string;
   accomadationArray: any;
+  showBooked: boolean = false;
   constructor(private route: ActivatedRoute,private apiservice: ApiService,private ngxService: NgxUiLoaderService,
     private router:Router) { }
 
@@ -26,9 +27,18 @@ export class AppDetailsComponent implements OnInit {
   
 loadAccList(uni_id:any){
   this.apiservice.listOfAccom(uni_id).subscribe((result:any) => {
-    console.log(result);
     this.accomadationArray = result.data;
   });
+}
+
+
+bookedHouse(acc_id: any){
+  this.apiservice.booking(acc_id).subscribe((result: any) => {
+    console.log(result);
+    if(result && result.status === "200"){
+    this.showBooked = true;
+  }
+  })
 }
 
 redirectAminity(){
@@ -37,6 +47,10 @@ redirectAminity(){
 
 navigateUrl() {
   this.router.navigate(["login"])
+}
+
+navigateUrlTo() {
+  this.router.navigate(["uni-list"])
 }
 
 accPopUp(){

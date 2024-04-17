@@ -15,6 +15,7 @@ export class AccomadationComponent implements OnInit {
   selectedUniversityId!: string;
   selectedAccomdationId!: string;
   universityOptions: any;
+  uniLinkDisable:boolean = true;
   form: FormGroup = new FormGroup({
     name: new FormControl(''),
     address: new FormControl(''),
@@ -101,7 +102,9 @@ export class AccomadationComponent implements OnInit {
     this.apiservice.accomadationRegister(this.form.value).subscribe((response: any) => {
       console.log(response);
       if(response && response.status === "200"){
+        localStorage.setItem("acc_id",response.data.acc_id)
         this.form.reset();
+        this.uniLinkDisable = false;
       }
     });
   }
@@ -114,7 +117,7 @@ export class AccomadationComponent implements OnInit {
   public accUniLink(){
      const payload = {
       university_id: this.selectedUniversityId,
-      accomidation_id: this.selectedAccomdationId,
+      accomidation_id: localStorage.getItem("acc_id"),
       distance: this.inputValue
      }
     this.apiservice.accUniLink(payload).subscribe((response: any) => {

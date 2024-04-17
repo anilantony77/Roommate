@@ -68,10 +68,16 @@ public accomadationRegister(acc: any){
   return this.httpservice.post("http://127.0.0.1:9000//roommate/accommodation-register",payload);
 }
 
-public accUniLink(uniLink?: any){
+public accUniLink(uniLink: any){
   return this.httpservice.post("http://127.0.0.1:9000/roommate/acc-uni-map",uniLink);
 }
 
-
+public booking(acc_id?: any){
+  const payload = {
+    accomidation_id: acc_id.accomidation_id,
+    total_room: acc_id.availability
+  }
+  return this.httpservice.post("http://127.0.0.1:9000/roommate/booking-room",payload);
+}
 
 }
