@@ -76,20 +76,20 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6" *ngIf="!uniLinkDisable">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">University Registration</h5>
+                        <h5 class="card-title">University And Accomidation Registration</h5>
                     </div>
                     <div class="card-body">
                         <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedUniversityId">
                             <option [ngValue]="undefined" [disabled]="true">Select University</option>
                             <option *ngFor="let university of universityOptions" [value]="university.university_id">{{ university.university_name }}</option>
                         </select> 
-                        <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedAccomdationId">
+                        <!-- <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedAccomdationId">
                             <option [ngValue]="undefined" [disabled]="true">Select Accomadation</option>
                             <option *ngFor="let accomdation of accomadationArray" [value]="accomdation.accomidation_name">{{ accomdation.accomidation_name }}</option>
-                        </select>
+                        </select> -->
                               <label>Distance</label>
                               <input type="text" class="form-control" [(ngModel)]="inputValue">
                         <div style="margin-top: 15px;">

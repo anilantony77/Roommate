@@ -29,3 +29,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 
 node-version === 14.21.3
+
+
+<!-- steps to install and run the application
+
+1 npm install --to instll the apllication
+
+2 npm start -- to start the localhost 4200 -->

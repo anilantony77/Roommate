@@ -23,7 +23,7 @@ import { AccomadationComponent } from './accomadation/accomadation.component';
 import { MatDialogModule } from '@angular/material/dialog';
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   fgsSize: 100,
-  fgsColor: 'red',
+  fgsColor: '#f0f0f0',
   fgsType: SPINNER.threeStrings,
 };
 
