@@ -7,6 +7,11 @@ import {
   Validators,
 } from '@angular/forms';
 import Validation from './utlis/validation';
+import { ApiService } from '../api.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Router } from '@angular/router';
+import { LoaderService } from '../loader.service';
+
 
 
 @Component({
@@ -21,8 +26,13 @@ export class LoginPageComponent implements OnInit {
   });
   submitted = false;
   passwordHidden = true;
+  emailexists = false;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder,
+    private apiservice: ApiService,
+    private ngxService: NgxUiLoaderService,
+    private router:Router,
+  ) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
@@ -46,12 +56,27 @@ export class LoginPageComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-
-    if (this.form.invalid) {
-      return;
+    if(this.form.valid){
+      debugger
+      this.ngxService.start();
+      this.apiservice.login(this.form.value).subscribe((result: any)=> {
+        if(result && result.status ===  "200"){
+          this.emailexists = false;
+          localStorage.setItem("UserId",result.data.user_id);
+          setTimeout(() => {
+            this.router.navigate(["uni-list"])
+          },2000)
+        }
+        else {
+          if(result.status === "401"){
+            this.emailexists = true;
+          }
+        }
+      },(err) => {
+        // this.ngxService.stop();
+        // this.toastr.error(err.error.message);
+      })
     }
-
-    console.log(JSON.stringify(this.form.value, null, 2));
   }
 
   togglePasswordVisibility(): void {

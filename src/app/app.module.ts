@@ -15,8 +15,17 @@ import { AppDetailsComponent } from './app-details/app-details.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { UniListComponent } from './uni-list/uni-list.component';
-
-
+import { HttpClientModule } from '@angular/common/http';
+import { AmentityListComponent } from './amentity-list/amentity-list.component';
+// import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { NgxUiLoaderConfig, NgxUiLoaderModule, SPINNER } from "ngx-ui-loader";
+import { AccomadationComponent } from './accomadation/accomadation.component';
+import { MatDialogModule } from '@angular/material/dialog';
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  fgsSize: 100,
+  fgsColor: 'red',
+  fgsType: SPINNER.threeStrings,
+};
 
 @NgModule({
   declarations: [
@@ -24,7 +33,9 @@ import { UniListComponent } from './uni-list/uni-list.component';
     LoginPageComponent,
     SignupComponent,
     AppDetailsComponent,
-    UniListComponent
+    UniListComponent,
+    AmentityListComponent,
+    AccomadationComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +48,11 @@ import { UniListComponent } from './uni-list/uni-list.component';
     ReactiveFormsModule,
     MatIconModule,
     MatSelectModule,
-    MatCardModule
+    MatCardModule,
+    HttpClientModule,
+    MatIconModule,
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

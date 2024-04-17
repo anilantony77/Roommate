@@ -47,16 +47,20 @@
                   <div class="form-group">
                     <label>Email</label>
                     <input
-                      type="text"
-                      formControlName="email"
-                      class="form-control"
-                      [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+                        type="text"
+                        formControlName="email"
+                        class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f['email'].errors || emailexists }"
                     />
                     <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-                      <div *ngIf="f['email'].errors['required']">Email is required</div>
-                      <div *ngIf="f['email'].errors['email']">Email is invalid</div>
+                        <div *ngIf="f['email'].errors['required']">Email is required</div>
+                        <div *ngIf="f['email'].errors['email']">Email is invalid</div>
                     </div>
-                  </div>
+                    <div *ngIf="emailexists" class="invalid-feedback">
+                        Email already exists
+                    </div>
+                </div>
+                
               
                   <div class="form-group password-main">
                     <label>Password</label>
